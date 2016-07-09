@@ -1,0 +1,44 @@
+<resources>
+    <string name="api_key">Add your api key here</string>
+
+    <string name="app_name">Popular Movies</string>
+    <string name="movie_details">Movie Details</string>
+
+    <string name="release_date">Release Date</string>
+    <string name="mark_as_favorite">Mark As favorite</string>
+    <string name="user_rating">User Rating</string>
+    <string name="overview">Overview</string>
+    <string name="watch_movie_trailer">Watch Movie Trailers</string>
+    <string name="user_reviews">User Reviews</string>
+    <string name="author">Author:</string>
+    <string name="comment">Comment:</string>
+
+    <string name="show_movies">Show Movies</string>
+    <string name="movies_type">movies_type</string>
+
+    <string-array name="movie_entries">
+        <item>Popular Movies</item>
+        <item>Top Rated Movies</item>
+        <item>Favorite Movies</item>
+    </string-array>
+
+    <string-array name="movie_entry_values">
+        <item>POPULAR_MOVIES</item>
+        <item>TOP_RATED_MOVIES</item>
+        <item>FAVORITE_MOVIES</item>
+    </string-array>
+
+    <string name="movies_default_value">
+        POPULAR_MOVIES
+    </string>
+
+    <string name="top_rated_movies">Top Rated Movies</string>
+
+    <string name="summary">Select the kind of movies that you are interested in.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="errorMessage">Oops! Unable to fetch movies.</string>
+
+    <string name="share">Share</string>
+
+</resources>
