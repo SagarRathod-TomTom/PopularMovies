@@ -1,5 +1,5 @@
 <resources>
-    <string name="api_key">Add your api key here</string>
+    <string name="api_key">3c41fc6528ecd0830aedf8266b1b219e</string>
 
     <string name="app_name">Popular Movies</string>
     <string name="movie_details">Movie Details</string>

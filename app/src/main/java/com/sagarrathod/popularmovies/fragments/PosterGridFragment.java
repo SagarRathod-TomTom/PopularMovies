@@ -5,10 +5,12 @@
 
 package com.sagarrathod.popularmovies.fragments;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
@@ -17,10 +19,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.support.v4.app.FragmentManager;
+import android.widget.ListView;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.activities.MovieDetailsActivity;
@@ -37,7 +41,7 @@ import com.sagarrathod.popularmovies.util.MoviesType;
  */
 public class PosterGridFragment extends Fragment {
 
-    private GridView mGridView;
+    private ListView mListView;
     private PosterAdapter mPosterAdapter;
     private Context mContext;
     private MovieDataFetcher mMovieDataFetcher;
@@ -86,11 +90,11 @@ public class PosterGridFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_poster_grid, container, false);
 
-        mGridView = (GridView) rootView.findViewById(R.id.gridView);
+        mListView = (ListView) rootView.findViewById(R.id.gridView);
 
-        mGridView.setAdapter(mPosterAdapter);
+        mListView.setAdapter(mPosterAdapter);
 
-        mGridView.setOnItemClickListener(mMoviePosterClickListener);
+        mListView.setOnItemClickListener(mMoviePosterClickListener);
 
         return rootView;
     }
@@ -237,7 +241,19 @@ public class PosterGridFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Movie movie = (Movie) mPosterAdapter.getItem(position);
+
+            // Create a ripple effect
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+
+                int finalRadius = (int) Math.hypot(view.getWidth()/2,  view.getHeight()/2);
+                Animator animator = ViewAnimationUtils.createCircularReveal(
+                        view,
+                        view.getWidth()/2, view.getHeight()/2,
+                        0, finalRadius);
+                animator.start();
+            }
             if (movie != null) {
+
                 setCurrentMovieSelection(position);
                 showMovieDetails(movie);
             }

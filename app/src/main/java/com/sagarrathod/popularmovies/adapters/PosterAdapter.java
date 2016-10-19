@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.beans.Movie;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -110,14 +112,28 @@ public class PosterAdapter extends BaseAdapter {
         }
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.poster_grid_item);
+        final ProgressBar progressBar = (ProgressBar) convertView.findViewById(R.id.image_loading_bar);
+        progressBar.setVisibility(View.VISIBLE);
 
         Movie movie = (Movie) getItem(position);
 
         if (imageView != null && movie != null) {
             String posterPath = mBasePosterPath + movie.getPosterPath();
+
             // Log.v("Poster Path", posterPath);
-            Picasso.with(mContext).load(posterPath).placeholder(R.mipmap.placeholder).
-                    into(imageView);
+            Picasso.with(mContext).load(posterPath)
+                    .fit()
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError() {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
         } else {
             //error has oocurred.
             //load error image.
