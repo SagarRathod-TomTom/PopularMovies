@@ -13,14 +13,14 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:elevation="4dp"/>
+        app:titleTextColor="@android:color/white"/>
 
     <fragment
         android:id="@+id/poster_grid_fragment"
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.sagarrathod.popularmovies.fragments.PosterGridFragment"
-        tools:layout="@layout/fragment_poster_grid" />
+        tools:layout="@layout/fragment_poster_grid"
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

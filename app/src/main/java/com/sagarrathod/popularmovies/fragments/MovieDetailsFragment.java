@@ -34,6 +34,7 @@ import com.sagarrathod.popularmovies.beans.MovieTrailer;
 import com.sagarrathod.popularmovies.beans.UserReview;
 import com.sagarrathod.popularmovies.data.contract.MovieContract;
 
+import com.sagarrathod.popularmovies.util.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -52,8 +53,6 @@ public class MovieDetailsFragment extends Fragment {
     private final String TAG = "#Popular Movies";
     private Context mContext;
     private String mBasePosterPath = "http://image.tmdb.org/t/p/w185/";
-    private SimpleDateFormat mFromFormat = new SimpleDateFormat("yyyy-mm-dd");
-    private SimpleDateFormat mToFormat = new SimpleDateFormat("MMM dd, yyyy");
     private MovieTrailerAdapter mMovieTrailerAdapter;
     private UserReviewAdapter mUserReviewAdapter;
     private MovieTrailerClickListener mMovieTrailerClickListener;
@@ -184,13 +183,8 @@ public class MovieDetailsFragment extends Fragment {
         userRating.setText(movie.getVoteAverage() + "/10");
 
         TextView releaseDate = (TextView) view.findViewById(R.id.release_date);
-        try {
-            Date date = mFromFormat.parse(movie.getReleaseDate());
-            releaseDate.setText(mToFormat.format(date));
-        } catch (ParseException e) {
-            //Shows the received date as it is.
-            releaseDate.setText(movie.getReleaseDate());
-        }
+
+        releaseDate.setText(Utils.formatReleaseDate(movie.getReleaseDate()));
 
         mMovieTrailerAdapter = new MovieTrailerAdapter(mContext);
         mUserReviewAdapter = new UserReviewAdapter(mContext);

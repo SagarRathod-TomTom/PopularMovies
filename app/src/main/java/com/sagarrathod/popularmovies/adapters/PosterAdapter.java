@@ -6,15 +6,19 @@
 package com.sagarrathod.popularmovies.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.beans.Movie;
+import com.sagarrathod.popularmovies.util.Utils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -116,6 +120,19 @@ public class PosterAdapter extends BaseAdapter {
         progressBar.setVisibility(View.VISIBLE);
 
         Movie movie = (Movie) getItem(position);
+
+        TextView textView = (TextView) convertView.findViewById(R.id.movie_title);
+        textView.setText(movie.getOriginalTitle());
+
+        TextView releaseDateTextView = (TextView) convertView.findViewById(R.id.release_date);
+        releaseDateTextView.setText(Utils.formatReleaseDate(movie.getReleaseDate()));
+
+
+        RatingBar ratingBar = (RatingBar) convertView.findViewById(R.id.rating_bar);
+        double rating = movie.getVoteAverage();
+        float fillStars = (float)(rating / 10) * 5;
+        ratingBar.setRating(fillStars);
+
 
         if (imageView != null && movie != null) {
             String posterPath = mBasePosterPath + movie.getPosterPath();
