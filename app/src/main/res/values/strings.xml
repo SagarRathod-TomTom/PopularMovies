@@ -1,7 +1,7 @@
 <resources>
     <string name="api_key">3c41fc6528ecd0830aedf8266b1b219e</string>
 
-    <string name="app_name">Popular Movies</string>
+    <string name="app_name">Hollywood Movies</string>
     <string name="movie_details">Movie Details</string>
 
     <string name="release_date">Release Date</string>
@@ -17,9 +17,9 @@
     <string name="movies_type">movies_type</string>
 
     <string-array name="movie_entries">
-        <item>Popular Movies</item>
-        <item>Top Rated Movies</item>
-        <item>Favorite Movies</item>
+        <item>Popular</item>
+        <item>Top Rated</item>
+        <item>Favorite</item>
     </string-array>
 
     <string-array name="movie_entry_values">

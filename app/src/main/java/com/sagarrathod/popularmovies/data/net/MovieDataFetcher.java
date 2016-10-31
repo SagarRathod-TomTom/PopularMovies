@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.View;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.adapters.PosterAdapter;
@@ -41,6 +42,7 @@ public class MovieDataFetcher extends AsyncTask<Void, Void, List<Movie>> {
     private PosterAdapter mPosterAdapter;
     private Fragment mFragment;
     private String mApiKey;
+    private  PosterGridFragment mPosterGridFragment;
 
     /**
      * Constructs the MovieDataFetcher to fetch movies data for {@link MoviesType}.
@@ -49,12 +51,20 @@ public class MovieDataFetcher extends AsyncTask<Void, Void, List<Movie>> {
      * @param posterAdapter The adapter {@link PosterAdapter} as a data source to store data.
      * @param moviesType    The type of movies data to fetch from https://api.themoviedb.org site.
      */
-    public MovieDataFetcher(Context context, PosterAdapter posterAdapter, MoviesType moviesType, Fragment fragment) {
+    public MovieDataFetcher(Context context, PosterAdapter posterAdapter, MoviesType moviesType,
+                            PosterGridFragment posterGridFragment) {
         this.mContext = context;
         this.mPosterAdapter = posterAdapter;
         this.mMoviesType = moviesType;
-        this.mFragment = fragment;
+        this.mPosterGridFragment = posterGridFragment;
         mApiKey = mContext.getString(R.string.api_key);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        mPosterGridFragment.mProgressBar.setVisibility(View.VISIBLE);
+        mPosterGridFragment.mListView.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -141,10 +151,13 @@ public class MovieDataFetcher extends AsyncTask<Void, Void, List<Movie>> {
             mPosterAdapter.setMovies(list);
         }
 
-        PosterGridFragment posterGridFragment = (PosterGridFragment) mFragment;
+        mPosterGridFragment.mProgressBar.setVisibility(View.INVISIBLE);
+        mPosterGridFragment.mListView.setVisibility(View.VISIBLE);
 
-        if (posterGridFragment.isDeviceInLandscapeOrientation())
-            posterGridFragment.showMovieDetails((Movie) mPosterAdapter.getItem(posterGridFragment.getCurrentMovieSelection()));
+        if (mPosterGridFragment.isDeviceInLandscapeOrientation())
+            mPosterGridFragment
+                    .showMovieDetails((Movie) mPosterAdapter
+                            .getItem(mPosterGridFragment.getCurrentMovieSelection()));
     }
 
 }

@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.support.v4.app.FragmentManager;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.activities.MovieDetailsActivity;
@@ -41,7 +42,7 @@ import com.sagarrathod.popularmovies.util.MoviesType;
  */
 public class PosterGridFragment extends Fragment {
 
-    private ListView mListView;
+    public ListView mListView;
     private PosterAdapter mPosterAdapter;
     private Context mContext;
     private MovieDataFetcher mMovieDataFetcher;
@@ -49,6 +50,7 @@ public class PosterGridFragment extends Fragment {
     private MoviesType mMoviesType;
     private boolean mMoviesTypeChanged = false;
     private int mCurrentMovieSelection = 0;
+    public ProgressBar mProgressBar;
 
     public int getCurrentMovieSelection() {
         return mCurrentMovieSelection;
@@ -57,9 +59,7 @@ public class PosterGridFragment extends Fragment {
     /**
      * Indicates that this fragment has a menu items.
      */
-    public PosterGridFragment() {
-        setHasOptionsMenu(true);
-    }
+    public PosterGridFragment() {}
 
     /**
      * Constructs the poster adapter to hold the movies data.
@@ -90,6 +90,8 @@ public class PosterGridFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_poster_grid, container, false);
 
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progress_indicator);
+
         mListView = (ListView) rootView.findViewById(R.id.gridView);
 
         mListView.setAdapter(mPosterAdapter);
@@ -107,6 +109,10 @@ public class PosterGridFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        changeMovieList();
+    }
+
+    public void changeMovieList(){
         checkPreferenceValues();
         getMovies();
     }
