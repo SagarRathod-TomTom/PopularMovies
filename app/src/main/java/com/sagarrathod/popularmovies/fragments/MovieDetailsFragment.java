@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import com.sagarrathod.popularmovies.R;
+import com.sagarrathod.popularmovies.activities.MovieDetailsActivity;
 import com.sagarrathod.popularmovies.adapters.MovieTrailerAdapter;
 import com.sagarrathod.popularmovies.adapters.UserReviewAdapter;
 import com.sagarrathod.popularmovies.beans.Movie;
@@ -51,7 +53,7 @@ import java.util.List;
 public class MovieDetailsFragment extends Fragment {
 
     private final String TAG = "#Popular Movies";
-    private Context mContext;
+    private MovieDetailsActivity mContext;
     private String mBasePosterPath = "http://image.tmdb.org/t/p/w185/";
     private MovieTrailerAdapter mMovieTrailerAdapter;
     private UserReviewAdapter mUserReviewAdapter;
@@ -75,7 +77,7 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.mContext = context;
+        this.mContext = (MovieDetailsActivity) context;
     }
 
     /**
@@ -166,15 +168,11 @@ public class MovieDetailsFragment extends Fragment {
 
         View view = getView();
 
-        TextView movieTitle = (TextView) view.findViewById(R.id.original_title);
-
-        movieTitle.setText(movie.getOriginalTitle());
-
-        ImageView posterThumbnail = (ImageView) view.findViewById(R.id.poster_thumbnail);
+        mContext.mToolbar.setTitle(movie.getOriginalTitle());
 
         Picasso.with(mContext).load(mBasePosterPath + movie.getPosterPath())
-                .placeholder(R.mipmap.placeholder)
-                .into(posterThumbnail);
+                .fit()
+                .into(mContext.mImageThumbnail);
 
         TextView overview = (TextView) view.findViewById(R.id.overview);
         overview.setText(String.format(" %s ", movie.getOverview()));

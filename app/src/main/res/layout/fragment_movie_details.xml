@@ -8,26 +8,6 @@
     android:orientation="vertical"
     tools:context="com.sagarrathod.popularmovies.fragments.MovieDetailsFragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/poster_thumbnail"
-            android:layout_height="200dp"
-            android:layout_width="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@drawable/scrim"/>
-
-        <TextView
-            android:id="@+id/original_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:textSize="20sp" />
-
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

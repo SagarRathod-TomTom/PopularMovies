@@ -5,11 +5,15 @@
 
 package com.sagarrathod.popularmovies.activities;
 
+import android.media.Image;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 
 import com.sagarrathod.popularmovies.R;
 import com.sagarrathod.popularmovies.beans.Movie;
@@ -25,7 +29,8 @@ import com.sagarrathod.popularmovies.fragments.MovieDetailsFragment;
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private MovieDetailsFragment mMovieDetailsFragment;
-
+    public CollapsingToolbarLayout mToolbar;
+    public ImageView mImageThumbnail;
     /**
      * Sets activity_movie_details layout.
      * Obtains the reference to {@link MovieDetailsFragment} from received intent to initialize the  movie details
@@ -37,8 +42,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
-        ActionBar bar = getSupportActionBar();
 
+        mToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mImageThumbnail = (ImageView) findViewById(R.id.poster_thumbnail);
+
+        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        ActionBar bar = getSupportActionBar();
         if(bar != null) {
             bar.setDisplayHomeAsUpEnabled(true);
         }
@@ -57,5 +66,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         }
     }
+
 }
 
